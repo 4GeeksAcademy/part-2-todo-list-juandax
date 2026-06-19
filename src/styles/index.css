@@ -1,11 +1,16 @@
-/* 
+.todo-item .delete-icon {
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out;
+}
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
+.todo-item:hover .delete-icon {
+    opacity: 0.6 !important;
+}
 
-*/
+.todo-item:hover .delete-icon:hover {
+    opacity: 1 !important;
+}
+
+body {
+    background-color: #f5f5f5 !important;
+}

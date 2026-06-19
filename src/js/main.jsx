@@ -1,18 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-
-//Bootstrap
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap"
-
-// index.css'
-import '../styles/index.css'
-
-// components
-import Home from './components/Home';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import '../styles/index.css';
+import TodoList from './components/TodoList.jsx'; 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Home/>
-  </React.StrictMode>,
-)
+    <React.StrictMode>
+        <TodoList />
+    </React.StrictMode>
+);
