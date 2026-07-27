@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 function TodoList() {
     const [inputValue, setInputValue] = useState("");
     const [todos, setTodos] = useState([]);
-    const username = "juandaxx"; 
+    const username = "juandaxx";
 
     const apiURL = `https://playground.4geeks.com/todo/users/${username}`;
     const todoApiURL = `https://playground.4geeks.com/todo/todos`;
@@ -82,7 +82,7 @@ function TodoList() {
             <h1 className="text-danger display-1 opacity-25 fw-light mb-4" style={{ fontSize: "6rem" }}>
                 todos
             </h1>
-            
+
             <div className="bg-white shadow-lg border border-light" style={{ width: "500px", borderRadius: "2px" }}>
                 <input
                     type="text"
@@ -101,17 +101,18 @@ function TodoList() {
                         </li>
                     ) : (
                         todos.map((todo) => (
-                            <li 
-                                key={todo.id} 
+                            <li
+                                key={todo.id}
                                 className="list-group-item d-flex justify-content-between align-items-center py-3 px-4 fs-5 fw-light todo-item bg-white border-bottom"
                                 style={{ color: "#4d4d4d" }}
                             >
                                 <span>{todo.label}</span>
-                                <i 
-                                    className="fas fa-times text-danger delete-icon opacity-0"
+                                <button
+                                    className="btn btn-sm btn-danger delete-icon"
                                     onClick={() => deleteTodo(todo.id)}
-                                    style={{ cursor: "pointer", transition: "opacity 0.15s ease-in-out" }}
-                                ></i>
+                                >
+                                    Eliminar
+                                </button>
                             </li>
                         ))
                     )}
@@ -122,7 +123,7 @@ function TodoList() {
                         {todos.length} {todos.length === 1 ? "item left" : "items left"}
                     </span>
                     {todos.length > 0 && (
-                        <button 
+                        <button
                             className="btn btn-sm btn-outline-danger border-0 fw-light fs-6 opacity-75"
                             onClick={clearAllTasks}
                         >

@@ -4,11 +4,7 @@
 }
 
 .todo-item:hover .delete-icon {
-    opacity: 0.6 !important;
-}
-
-.todo-item:hover .delete-icon:hover {
-    opacity: 1 !important;
+    opacity: 1;
 }
 
 body {
