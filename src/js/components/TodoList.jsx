@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 function TodoList() {
     const [inputValue, setInputValue] = useState("");
     const [todos, setTodos] = useState([]);
+
     const username = "juandaxx";
 
     const apiURL = `https://playground.4geeks.com/todo/users/${username}`;
@@ -19,13 +20,17 @@ function TodoList() {
                 return resp.json();
             })
             .then((data) => {
-                if (data && data.todos) setTodos(data.todos);
+                if (data && data.todos) {
+                    setTodos(data.todos);
+                }
             })
             .catch((error) => console.log(error));
     };
 
     const createUser = () => {
-        fetch(apiURL, { method: "POST" })
+        fetch(apiURL, {
+            method: "POST"
+        })
             .then((resp) => {
                 if (resp.ok) getTasks();
             })
@@ -38,6 +43,7 @@ function TodoList() {
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter" && inputValue.trim() !== "") {
+
             const newTask = {
                 label: inputValue.trim(),
                 is_done: false
@@ -46,7 +52,9 @@ function TodoList() {
             fetch(`${todoApiURL}/${username}`, {
                 method: "POST",
                 body: JSON.stringify(newTask),
-                headers: { "Content-Type": "application/json" }
+                headers: {
+                    "Content-Type": "application/json"
+                }
             })
                 .then((resp) => {
                     if (resp.ok) {
@@ -59,7 +67,9 @@ function TodoList() {
     };
 
     const deleteTodo = (id) => {
-        fetch(`${todoApiURL}/${id}`, { method: "DELETE" })
+        fetch(`${todoApiURL}/${id}`, {
+            method: "DELETE"
+        })
             .then((resp) => {
                 if (resp.ok) getTasks();
             })
@@ -67,7 +77,9 @@ function TodoList() {
     };
 
     const clearAllTasks = () => {
-        fetch(apiURL, { method: "DELETE" })
+        fetch(apiURL, {
+            method: "DELETE"
+        })
             .then((resp) => {
                 if (resp.ok) {
                     setTodos([]);
@@ -78,63 +90,75 @@ function TodoList() {
     };
 
     return (
-        <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light py-5">
-            <h1 className="text-danger display-1 opacity-25 fw-light mb-4" style={{ fontSize: "6rem" }}>
+        <div className="todo-page">
+
+            <h1 className="todo-title">
                 todos
             </h1>
 
-            <div className="bg-white shadow-lg border border-light" style={{ width: "500px", borderRadius: "2px" }}>
+            <div className="todo-container">
+
                 <input
                     type="text"
-                    className="form-control border-0 border-bottom rounded-0 py-3 px-4 fs-4 fw-light"
-                    placeholder="¿Qué necesitas hacer?"
+                    className="todo-input"
+                    placeholder="What needs to be done?"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    style={{ boxShadow: "none", fontStyle: "italic", borderColor: "#e6e6e6", color: "#4d4d4d" }}
                 />
 
-                <ul className="list-group list-group-flush m-0">
+                <ul className="list-group list-group-flush">
+
                     {todos.length === 0 ? (
-                        <li className="list-group-item text-muted py-3 px-4 fw-light fs-5 bg-white border-bottom text-center">
-                            No hay tareas, añadir tareas
+                        <li className="list-group-item todo-item">
+                            No tasks, add a task
                         </li>
                     ) : (
                         todos.map((todo) => (
+
                             <li
                                 key={todo.id}
-                                className="list-group-item d-flex justify-content-between align-items-center py-3 px-4 fs-5 fw-light todo-item bg-white border-bottom"
-                                style={{ color: "#4d4d4d" }}
+                                className="list-group-item todo-item"
                             >
+
                                 <span>{todo.label}</span>
+
                                 <button
-                                    className="btn btn-sm btn-danger delete-icon"
+                                    className="delete-icon"
                                     onClick={() => deleteTodo(todo.id)}
                                 >
-                                    Eliminar
+                                    ✕
                                 </button>
+
                             </li>
+
                         ))
                     )}
+
                 </ul>
 
-                <div className="bg-white text-muted py-2 px-3 fs-6 fw-light border-0 d-flex justify-content-between align-items-center" style={{ fontSize: "0.85rem" }}>
+                <div className="todo-footer">
+
                     <span>
                         {todos.length} {todos.length === 1 ? "item left" : "items left"}
                     </span>
+
                     {todos.length > 0 && (
                         <button
-                            className="btn btn-sm btn-outline-danger border-0 fw-light fs-6 opacity-75"
+                            className="clear-button"
                             onClick={clearAllTasks}
                         >
-                            Limpiar todo
+                            Clear all
                         </button>
                     )}
+
                 </div>
+
             </div>
 
-            <div className="bg-white border border-light shadow-sm" style={{ height: "4px", width: "496px", marginTop: "-1px", zIndex: 2 }}></div>
-            <div className="bg-white border border-light shadow-sm" style={{ height: "4px", width: "492px", marginTop: "-1px", zIndex: 1 }}></div>
+            <div className="shadow-line one"></div>
+            <div className="shadow-line two"></div>
+
         </div>
     );
 }
